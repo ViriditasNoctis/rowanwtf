@@ -63,6 +63,7 @@
         <li><strong>Browser Language:</strong> <span id="browserLanguage"></span></li>
         <li><strong>Platform (Operating System):</strong> <span id="platform"></span></li>
         <li><strong>Browser Version:</strong> <span id="browserVersion"></span></li>
+        <li><strong>Java Support:</strong> <span id="javaSupport"></span></li>
         <li><strong>Do Not Track:</strong> <span id="doNotTrack"></span></li>
         <li><strong>Location (Geolocation API):</strong> <span id="location"></span></li>
         <li><strong>Local Storage Enabled:</strong> <span id="localStorageEnabled"></span></li>
@@ -90,6 +91,7 @@
         document.getElementById("platform").textContent = navigator.platform;
         document.getElementById("browserVersion").textContent = navigator.appVersion;
         document.getElementById("doNotTrack").textContent = navigator.doNotTrack === "1" ? "Yes" : "No";
+        document.getElementById("javaSupport").textContent = navigator.javaEnabled() ? "Yes" : "No";
 
         // Check if geolocation is available
         if ("geolocation" in navigator) {
