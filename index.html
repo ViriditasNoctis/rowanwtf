@@ -111,7 +111,11 @@
         // Device orientation
         if ('DeviceOrientationEvent' in window) {
             window.addEventListener('deviceorientation', function(event) {
-                document.getElementById("deviceOrientation").textContent = `Alpha: ${event.alpha}, Beta: ${event.beta}, Gamma: ${event.gamma}`;
+                document.getElementById("deviceOrientation").innerHTML = `
+                Alpha: ${event.alpha}<br>
+                Beta: ${event.beta}<br>
+                Gamma: ${event.gamma}
+            `;
             });
         } else {
             document.getElementById("deviceOrientation").textContent = "Device Orientation API not supported.";
