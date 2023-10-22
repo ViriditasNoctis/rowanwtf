@@ -76,8 +76,6 @@
         <li><strong>Browser Window Size:</strong> <span id="windowSize"></span></li>
         <li><strong>Timezone:</strong> <span id="timezone"></span></li>
         <li><strong>Device Pixel Ratio:</strong> <span id="pixelRatio"></span></li>
-        <li><strong>Battery Level:</strong> <span id="batteryLevel"></span></li>
-        <li><strong>Charging Status:</strong> <span id="chargingStatus"></span></li>
     </ul>
 
 </div>
@@ -87,25 +85,11 @@
         // JavaScript to display browser information
         document.getElementById("userAgent").textContent = navigator.userAgent;
         document.getElementById("cookiesEnabled").textContent = navigator.cookieEnabled ? "Yes" : "No";
-        document.getElementById("cookieCount").textContent = document.cookie.split(';').length;
-        document.getElementById("localStorageUsage").textContent = localStorage.length;
         document.getElementById("screenResolution").textContent = `${window.screen.width}x${window.screen.height}`;
         document.getElementById("browserLanguage").textContent = navigator.language;
         document.getElementById("platform").textContent = navigator.platform;
         document.getElementById("browserVersion").textContent = navigator.appVersion;
         document.getElementById("doNotTrack").textContent = navigator.doNotTrack === "1" ? "Yes" : "No";
-        document.getElementById("javaSupport").textContent = navigator.javaEnabled() ? "Yes" : "No";
-        document.getElementById("timezoneOffset").textContent = new Date().getTimezoneOffset();
-        
-
-        const battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery;
-        if (battery) {
-        document.getElementById("batteryLevel").textContent = battery.level * 100 + "%";
-        document.getElementById("chargingStatus").textContent = battery.charging ? "Charging" : "Not Charging";
-        } else {
-        document.getElementById("batteryInfo").textContent = "Battery API not supported.";
-    }
-
 
         // Check if geolocation is available
         if ("geolocation" in navigator) {
