@@ -16,8 +16,6 @@
     
     <h1>Your data:</h1>
     <br>
-    <p1>Shows browser informarion available for grabs</p1>
-    <br>
     <br>
     <div class="middle-side">
         <!-- div to display the public IP -->
@@ -28,15 +26,18 @@
     <div class="right-side">
         <!-- Add a container for the city name -->
         <div id="city-container">
-        Locating target..
+        locating target..
         </div>
     </div>
     <br>
+    <div class="right-side">
+        <!-- Add a container for the device orientation -->
+        <div id="deviceOrientation">
+        spinning gyroscope..
+        </div>
+    </div>
 
-    <ul>
-        <li><strong>Device Orientation:</strong> <span id="deviceOrientation"></span></li>
-    </ul>
-
+    <br>
     <ul>
         <li><strong>User-Agent:</strong> <span id="userAgent"></span></li>
         <li><strong>Browser Cookies Enabled:</strong> <span id="cookiesEnabled"></span></li>
@@ -60,6 +61,7 @@
     </ul>
 
 </div>
+
 
     <script>
         // JavaScript to display browser information
