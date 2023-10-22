@@ -18,6 +18,7 @@
     <br>
     <p1>Shows browser informarion available for grabs</p1>
     <br>
+    <p id="hostname">Fetching hostname...</p>
     <br>
     <div class="middle-side">
         <!-- div to display the public IP -->
@@ -34,6 +35,10 @@
     <br>
 
     <ul>
+        <li><strong>Device Orientation:</strong> <span id="deviceOrientation"></span></li>
+    </ul>
+
+    <ul>
         <li><strong>User-Agent:</strong> <span id="userAgent"></span></li>
         <li><strong>Browser Cookies Enabled:</strong> <span id="cookiesEnabled"></span></li>
         <li><strong>Screen Resolution:</strong> <span id="screenResolution"></span></li>
@@ -46,7 +51,6 @@
         <li><strong>Session Storage Enabled:</strong> <span id="sessionStorageEnabled"></span></li>
         <li><strong>Online Status:</strong> <span id="onlineStatus"></span></li>
         <li><strong>Browser Plugins:</strong> <span id="browserPlugins"></span></li>
-        <li><strong>Device Orientation:</strong> <span id="deviceOrientation"></span></li>
         <li><strong>Connection Type:</strong> <span id="connectionType"></span></li>
         <!-- Add more information as needed -->
     </ul>
