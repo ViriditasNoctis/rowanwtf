@@ -30,6 +30,7 @@
         </div>
     </div>
     <br>
+    <p1>Device orientation:</p1>
     <div class="right-side">
         <!-- Add a container for the device orientation -->
         <div id="deviceOrientation">
@@ -115,7 +116,6 @@
         document.getElementById("browserPlugins").innerHTML = pluginList;
 
         // Device orientation
-        <p1>Device orientation:</p1>
         if ('DeviceOrientationEvent' in window) {
             window.addEventListener('deviceorientation', function(event) {
             document.getElementById("deviceOrientation").innerHTML = `<br>
