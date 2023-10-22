@@ -10,3 +10,57 @@ body {
     margin: 0 auto;
     max-width: 960px; /* You can set a maximum width for the content if desired */
 }
+
+/* nav styles */
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 38px;
+}
+
+.left-side {
+    display: flex;
+
+}
+
+.nav-wrapper > .left-side > div {
+    margin-right: 20px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+.nav-link-wrapper {
+    height: 22px;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.5s;
+}
+
+.nav-link-wrapper a {
+    color: #8a8a8a;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.nav-link-wrapper:hover {
+    border-bottom: 1px solid green;
+}
+
+
+.nav-link-wrapper a:hover {
+    color: green;
+}
+
+.active-nav-link {
+    border-bottom: 1px solid green;
+}
+
+.active-nav-link a {
+    color: green !important;
+
+}
+
+
+.right-side {
+    color: green;
+    font-size: 1.2em;
+}
