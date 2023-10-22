@@ -38,6 +38,11 @@
         <div id="public-ip-container" style="color: green; font-size: 1.2em;">
         scanning network..
     </div> 
+    <div class="middle-side">
+        <!-- div to display the estimate location -->
+        <div id="location" style="color: green; font-size: 1.2em;">
+        estimating target location..
+    </div>
     </div>
     <div class="right-side">
         <!-- Add a container for the city name -->
@@ -56,6 +61,7 @@
 
     <br>
     <ul>
+        <li><strong>User-Agent:</strong> <span id="userAgent"></span></li>
         <li><strong>Platform (Operating System):</strong> <span id="platform"></span></li>
         <li><strong>Screen Resolution:</strong> <span id="screenResolution"></span></li>
         <li><strong>CPU Cores:</strong> <span id="hardwareConcurrency"></span></li>
@@ -64,7 +70,6 @@
         <li><strong>Charging Status:</strong> <span id="chargingStatus"></span></li>
         <li><strong>Browser Language:</strong> <span id="browserLanguage"></span></li>
         <li><strong>Timezone:</strong> <span id="timezone"></span></li>
-        <li><strong>User-Agent:</strong> <span id="userAgent"></span></li>
     </ul>
     <br>
     <ul>
@@ -74,7 +79,7 @@
         <li><strong>Cookie Count:</strong> <span id="cookieCount"></span></li>
         <li><strong>Java Support:</strong> <span id="javaSupport"></span></li>
         <li><strong>Do Not Track:</strong> <span id="doNotTrack"></span></li>
-        <li><strong>Location (Geolocation API):</strong> <span id="location"></span></li>
+        <li><strong>Location (Geolocation API):</strong> <span id="location1"></span></li>
         <li><strong>Local Storage Enabled:</strong> <span id="localStorageEnabled"></span></li>
         <li><strong>localStorageUsage:</strong> <span id="localStorageUsage"></span></li>
         <li><strong>Session Storage Enabled:</strong> <span id="sessionStorageEnabled"></span></li>
@@ -98,6 +103,21 @@
 </div>
 
 
+<script>
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        const publicIpAddress = data.ip;
+
+        const apiUrl = `https://ipinfo.io/${publicIpAddress}/json`;
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+            const locationDiv = document.getElementById('location');
+            locationDiv.innerHTML = `Estimated Location: ${data.city}, ${data.region}, ${data.country}` + '(IP Based)';
+          });
+      });
+  </script>
 
     <script>
 
@@ -162,15 +182,15 @@
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
 
-        document.getElementById("location").innerHTML = `<br>
+        document.getElementById("location1").innerHTML = `<br>
             Latitude: ${latitude}<br>
             Longitude: ${longitude}
             `;
         }, function(error) {
-        document.getElementById("location").textContent = "Geolocation unavailable or denied.";
+        document.getElementById("location1").textContent = "Geolocation unavailable or denied.";
     });
         } else {
-            document.getElementById("location").textContent = "Geolocation API not supported.";
+            document.getElementById("location1").textContent = "Geolocation API not supported.";
         }
 
         // Check if local storage is available
@@ -249,7 +269,7 @@
                 .then(response => response.json())
                 .then(data => {
                     var city = data.address.city;
-                    document.getElementById('city-container').textContent = 'Current whereabouts: ' + city;
+                    document.getElementById('city-container').textContent = 'Current whereabouts: ' + city + '(Browser data)';
                 })
                 .catch(error => {
                     console.error('Error fetching city name:', error);
