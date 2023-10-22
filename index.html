@@ -76,10 +76,16 @@
         // Check if geolocation is available
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                document.getElementById("location").textContent = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
-            }, function(error) {
-                document.getElementById("location").textContent = "Geolocation unavailable or denied.";
-            });
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+        document.getElementById("location").innerHTML = `
+            Latitude: ${latitude}<br>
+            Longitude: ${longitude}
+            `;
+        }, function(error) {
+        document.getElementById("location").textContent = "Geolocation unavailable or denied.";
+    });
         } else {
             document.getElementById("location").textContent = "Geolocation API not supported.";
         }
@@ -111,10 +117,6 @@
         // Device orientation
         if ('DeviceOrientationEvent' in window) {
             window.addEventListener('deviceorientation', function(event) {
-                const alpha = event.alpha.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 4 });
-                const beta = event.beta.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 4 });
-                const gamma = event.gamma.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 4 });
-
             document.getElementById("deviceOrientation").innerHTML = `
                 Alpha: ${event.alpha}<br>
                 Beta: ${event.beta}<br>
