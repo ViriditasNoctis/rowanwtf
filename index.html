@@ -163,39 +163,14 @@
     </script>
     <script>
         // Get IP Address
-        function fetchIP() {
-    // List of IP retrieval services to try in order
-    const services = [
-        'https://api.ipify.org?format=json',
-        'https://ifconfig.co/json',
-        'https://ipinfo.io/json',
-        'http://ip-api.com/json',
-        'https://api.ipify.org',
-        'http://icanhazip.com',
-        'http://ip-api.net/json',
-        'http://ifconfig.me/ip',
-    ];
-
-    // Function to try the next service in the list
-    function tryNextService(services, index) {
-        if (index >= services.length) {
-            console.error('Failed to retrieve IP from all services');
-        } else {
-            fetch(services[index])
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('public-ip-container').textContent = 'Your public IP: ' + data.ip;
-                })
-                .catch(error => {
-                    console.error('Failed to retrieve IP:', error);
-                    tryNextService(services, index + 1);
-                });
-        }
-    }
-
-    // Start with the first service
-    tryNextService(services, 0);
-}
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('public-ip-container').textContent = 'Public ip: ' + data.ip;
+            })
+        .catch(error => {
+            console.error('You broke the internet:', error);
+        });
 
 
         // Get and display the city name
