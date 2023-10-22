@@ -111,7 +111,11 @@
         // Device orientation
         if ('DeviceOrientationEvent' in window) {
             window.addEventListener('deviceorientation', function(event) {
-                document.getElementById("deviceOrientation").innerHTML = `
+                const alpha = event.alpha.toFixed(2);
+                const beta = event.beta.toFixed(2);
+                const gamma = event.gamma.toFixed(2);
+
+            document.getElementById("deviceOrientation").innerHTML = `
                 Alpha: ${event.alpha}<br>
                 Beta: ${event.beta}<br>
                 Gamma: ${event.gamma}
