@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>browser info</title>
+    <title>rowan.wtf brwinfo</title>
     <meta charset="utf-8" />
     <title>rowan.wtf</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,8 +31,7 @@
         </div>
         
 
-    <h1>Your data:</h1>
-    <br>
+    <h1>Device Data Found..</h1>
     <br>
     <div class="middle-side">
         <!-- div to display the public IP -->
@@ -57,32 +56,89 @@
 
     <br>
     <ul>
-        <li><strong>User-Agent:</strong> <span id="userAgent"></span></li>
-        <li><strong>Browser Cookies Enabled:</strong> <span id="cookiesEnabled"></span></li>
-        <li><strong>Screen Resolution:</strong> <span id="screenResolution"></span></li>
-        <li><strong>Browser Language:</strong> <span id="browserLanguage"></span></li>
         <li><strong>Platform (Operating System):</strong> <span id="platform"></span></li>
+        <li><strong>Screen Resolution:</strong> <span id="screenResolution"></span></li>
+        <li><strong>CPU Cores:</strong> <span id="hardwareConcurrency"></span></li>
+        <li><strong>Device Memory:</strong> <span id="deviceMemory"></span></li>
+        <li><strong>Battery Level:</strong> <span id="batteryLevel"></span></li>
+        <li><strong>Charging Status:</strong> <span id="chargingStatus"></span></li>
+        <li><strong>Browser Language:</strong> <span id="browserLanguage"></span></li>
+        <li><strong>Timezone:</strong> <span id="timezone"></span></li>
+        <li><strong>User-Agent:</strong> <span id="userAgent"></span></li>
+    </ul>
+    <br>
+    <ul>
         <li><strong>Browser Version:</strong> <span id="browserVersion"></span></li>
+        <li><strong>Notification Permission:</strong> <span id="notificationPermission"></span></li>
+        <li><strong>Browser Cookies Enabled:</strong> <span id="cookiesEnabled"></span></li>
+        <li><strong>Cookie Count:</strong> <span id="cookieCount"></span></li>
         <li><strong>Java Support:</strong> <span id="javaSupport"></span></li>
         <li><strong>Do Not Track:</strong> <span id="doNotTrack"></span></li>
         <li><strong>Location (Geolocation API):</strong> <span id="location"></span></li>
         <li><strong>Local Storage Enabled:</strong> <span id="localStorageEnabled"></span></li>
+        <li><strong>localStorageUsage:</strong> <span id="localStorageUsage"></span></li>
         <li><strong>Session Storage Enabled:</strong> <span id="sessionStorageEnabled"></span></li>
         <li><strong>Online Status:</strong> <span id="onlineStatus"></span></li>
         <li><strong>Browser Plugins:</strong> <span id="browserPlugins"></span></li>
         <li><strong>Connection Type:</strong> <span id="connectionType"></span></li>
+        <li><strong>Browser Window Size:</strong> <span id="windowSize"></span></li>
+        <li><strong>Device Pixel Ratio:</strong> <span id="pixelRatio"></span></li>
         <!-- Add more information as needed -->
     </ul>
+    <br>
+
     <ul>
-        <li><strong>Browser Window Size:</strong> <span id="windowSize"></span></li>
-        <li><strong>Timezone:</strong> <span id="timezone"></span></li>
-        <li><strong>Device Pixel Ratio:</strong> <span id="pixelRatio"></span></li>
+        <li><strong>Audio devices:</strong> <span id="audioDevices"></span></li>
+        <li><strong>Video devices:</strong> <span id="videoDevices"></span></li>
+        <li><strong>Touch Screen Support:</strong> <span id="touchscreenSupport"></span></li>
     </ul>
 
+
+    
 </div>
 
 
+
     <script>
+
+        // get media devices
+        navigator.mediaDevices.enumerateDevices()
+        .then(devices => {
+        const audioDevices = devices.filter(device => device.kind === 'audioinput');
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        document.getElementById("audioDevices").textContent = audioDevices.length;
+        document.getElementById("videoDevices").textContent = videoDevices.length;
+        });
+
+
+
+        //notification permission
+        Notification.requestPermission().then(permission => {
+        document.getElementById("notificationPermission").textContent = permission;
+        });
+
+
+        // get battery status
+        const battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery;
+        if ('getBattery' in navigator) {
+        navigator.getBattery().then(function(battery) {
+        document.getElementById("batteryLevel").textContent = (battery.level * 100) + "%";
+        document.getElementById("chargingStatus").textContent = battery.charging ? "Charging" : "Not Charging";
+        }).catch(function(error) {
+        document.getElementById("batteryInfo").textContent = "Error: " + error;
+        });
+        } else {
+        document.getElementById("batteryInfo").textContent = "Battery API not supported.";
+        }
+
+        // get device memory
+        if ('deviceMemory' in navigator) {
+        document.getElementById("deviceMemory").textContent = navigator.deviceMemory + " GB";
+        } else {
+        document.getElementById("deviceMemoryInfo").textContent = "Device memory information not available.";
+        }
+
+
         // JavaScript to display browser information
         document.getElementById("userAgent").textContent = navigator.userAgent;
         document.getElementById("cookiesEnabled").textContent = navigator.cookieEnabled ? "Yes" : "No";
@@ -92,6 +148,13 @@
         document.getElementById("browserVersion").textContent = navigator.appVersion;
         document.getElementById("doNotTrack").textContent = navigator.doNotTrack === "1" ? "Yes" : "No";
         document.getElementById("javaSupport").textContent = navigator.javaEnabled() ? "Yes" : "No";
+        document.getElementById("cookieCount").textContent = document.cookie.split(';').length;
+        document.getElementById("localStorageUsage").textContent = localStorage.length;
+        document.getElementById("hardwareConcurrency").textContent = navigator.hardwareConcurrency;
+        document.getElementById("touchscreenSupport").textContent = 'ontouchstart' in window ? "Yes" : "No";
+
+
+
 
         // Check if geolocation is available
         if ("geolocation" in navigator) {
