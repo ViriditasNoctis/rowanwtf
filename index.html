@@ -115,9 +115,10 @@
         document.getElementById("browserPlugins").innerHTML = pluginList;
 
         // Device orientation
+        <p1>Device orientation:</p1>
         if ('DeviceOrientationEvent' in window) {
             window.addEventListener('deviceorientation', function(event) {
-            document.getElementById("deviceOrientation").innerHTML = `
+            document.getElementById("deviceOrientation").innerHTML = `<br>
                 Alpha: ${event.alpha}<br>
                 Beta: ${event.beta}<br>
                 Gamma: ${event.gamma}
