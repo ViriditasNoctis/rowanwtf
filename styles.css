@@ -4,7 +4,24 @@ body {
     margin: 0px;
     background-color: #151515;
     color: green;
-}
+
+      background-image: url('images/matrix-transp.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+     /* Add a semi-transparent overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Adjust the alpha (last) value to control darkness */
+      z-index: -1; /* Place the overlay behind the content */
+    }
+
 
 .container {
     margin: 0 auto;
