@@ -1,2 +1,2 @@
 # rowanwtf
-rowan.wtf site
+rowan.wtf shows data accessible by the browser
