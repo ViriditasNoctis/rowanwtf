@@ -68,6 +68,7 @@
         </div>
     </div>
     <div class="profile-content-wrapper">
+
         <br>
         <ul>
             <li><strong>User-Agent:</strong> <span id="userAgent"></span></li>
@@ -80,6 +81,8 @@
             <li><strong>Browser Language:</strong> <span id="browserLanguage"></span></li>
             <li><strong>Timezone:</strong> <span id="timezone"></span></li>
         </ul>
+        <br>
+        <div id="cookie-value"></div>
         <br>
         <ul>
             <li><strong>Browser Version:</strong> <span id="browserVersion"></span></li>
@@ -113,6 +116,34 @@
 
 
 <script>
+
+    // Function to get the value of a cookie by its name
+function getCookieValue(cookieName) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(cookieName + '=')) {
+            return decodeURIComponent(cookie.substring(cookieName.length + 1));
+        }
+    }
+    return null; // Cookie not found
+}
+
+// Name of the cookie you want to retrieve
+const cookieName = 'your_cookie_name';
+
+// Get the value of the cookie
+const cookieValue = getCookieValue(cookieName);
+
+// Display the value in an element with an id "cookie-value"
+const cookieValueContainer = document.getElementById('cookie-value');
+if (cookieValueContainer) {
+    cookieValueContainer.textContent = `Cookie "${cookieName}" value: ${cookieValue}`;
+}
+
+
+
+
 
 // Define an array of IP retrieval services
 const ipServices = [
@@ -149,7 +180,10 @@ function displayPublicIPs() {
                 console.error(`Failed to retrieve IP from ${service}:`, error);
             });
     });
+    
 }
+
+
 
 // Call the function to display public IPs
 displayPublicIPs();
