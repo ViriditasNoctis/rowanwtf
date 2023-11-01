@@ -79,6 +79,8 @@
             <li><strong>Charging Status:</strong> <span id="chargingStatus"></span></li>
             <li><strong>Browser Language:</strong> <span id="browserLanguage"></span></li>
             <li><strong>Timezone:</strong> <span id="timezone"></span></li>
+            <li><strong>Browser Cookies Enabled:</strong> <span id="cookiesEnabled"></span></li>
+            <li><strong>Cookie Count:</strong> <span id="cookieCount"></span></li>
         </ul>
         <br>
         <div id="cookie-container"></div>
@@ -86,8 +88,6 @@
         <ul>
             <li><strong>Browser Version:</strong> <span id="browserVersion"></span></li>
             <li><strong>Notification Permission:</strong> <span id="notificationPermission"></span></li>
-            <li><strong>Browser Cookies Enabled:</strong> <span id="cookiesEnabled"></span></li>
-            <li><strong>Cookie Count:</strong> <span id="cookieCount"></span></li>
             <li><strong>Java Support:</strong> <span id="javaSupport"></span></li>
             <li><strong>Do Not Track:</strong> <span id="doNotTrack"></span></li>
             <li><strong>Location (Geolocation API):</strong> <span id="location1"></span></li>
@@ -125,6 +125,7 @@ const ipServices = [
     'https://ifconfig.co/json',
     'https://ipinfo.io/json',
     'http://ip-api.com/json',
+    'https://api.ipify.org/?format=json',
     'https://ip-api.io/json',
     'https://api.ipify.org',
     'http://ip-api.net/json',
@@ -145,7 +146,7 @@ function displayPublicIPs() {
                 const ip = data.ip || data.ip_address;
                 const source = service.match(/https:\/\/([^/]+)/)[1];
                 const ipElement = document.createElement('div');
-                ipElement.textContent = `Public IP (${source}): ${ip}`;
+                ipElement.textContent = `Public ip: ${ip} (${source})`;
                 return ipElement;
             })
             .catch(error => {
@@ -321,16 +322,6 @@ displayCookies();
         document.getElementById("pixelRatio").textContent = window.devicePixelRatio;
     </script>
     <script>
-        // Get IP Address
-        fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('public-ip-container').textContent = 'Public ip: ' + data.ip;
-            })
-        .catch(error => {
-            console.error('You broke the internet:', error);
-        });
-
 
         // Get and display the city name
    if ("geolocation" in navigator) {
