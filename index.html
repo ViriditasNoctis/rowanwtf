@@ -259,7 +259,8 @@ displayCookies();
 
         document.getElementById("location1").innerHTML = `<br>
             Latitude: ${latitude}<br>
-            Longitude: ${longitude}
+            Longitude: ${longitude}<br>
+            Easy copy: ${latitude} ${longitude}
             `;
         }, function(error) {
         document.getElementById("location1").textContent = "Geolocation unavailable or denied.";
