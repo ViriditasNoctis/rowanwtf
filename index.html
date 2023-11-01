@@ -347,6 +347,32 @@ displayCookies();
     }
 
 
+// Function to get location based on IP address
+function getLocationByIP() {
+    const locationDiv = document.getElementById('location');
+    locationDiv.textContent = 'Estimating target location based on IP...';
+
+    // Use the ipinfo.io API to get location information based on the user's IP address
+    fetch('https://ipinfo.io/json')
+        .then(response => response.json())
+        .then(data => {
+            const city = data.city;
+            const region = data.region;
+            const country = data.country;
+            locationDiv.textContent = `Location based on IP: ${city}, ${region}, ${country}`;
+        })
+        .catch(error => {
+            console.error('Error fetching location based on IP:', error);
+            locationDiv.textContent = 'Location based on IP not available.';
+        });
+}
+
+// Call the function to get location based on IP
+getLocationByIP();
+
+
+
+
     </script>
 
 </body>
