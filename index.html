@@ -334,7 +334,7 @@ displayCookies();
                 .then(response => response.json())
                 .then(data => {
                     var city = data.address.city;
-                    document.getElementById('city-container').textContent = 'Current whereabouts based on GEO data: ' + city;
+                    document.getElementById('city-container').textContent = 'Current whereabouts based on GEO: ' + city;
                 })
                 .catch(error => {
                     console.error('Error fetching city name:', error);
