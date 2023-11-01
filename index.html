@@ -120,16 +120,15 @@
 
 // Define an array of IP retrieval services
 const ipServices = [
-        'https://whatsmyip.org',
-        'http://icanhazip.com',
-        'https://api.ipify.org?format=json',
-        'https://ifconfig.co/json',
-        'https://ipinfo.io/json',
-        'http://ip-api.com/json',
-        'https://ip-api.io/json',
-        'https://api.ipify.org',
-        'http://ip-api.net/json',
-        'http://ifconfig.me/ip',
+    'https://whatsmyip.org',
+    'http://icanhazip.com',
+    'https://ifconfig.co/json',
+    'https://ipinfo.io/json',
+    'http://ip-api.com/json',
+    'https://ip-api.io/json',
+    'https://api.ipify.org',
+    'http://ip-api.net/json',
+    'http://ifconfig.me/ip',
     // Add more IP retrieval services here
 ];
 
@@ -138,8 +137,8 @@ function displayPublicIPs() {
     const ipContainer = document.getElementById('public-ip-container');
     ipContainer.innerHTML = ''; // Clear previous content
 
-    // Iterate through the IP services
-    ipServices.forEach(service => {
+    // Create an array of fetch promises
+    const fetchPromises = ipServices.map(service =>
         fetch(service)
             .then(response => response.json())
             .then(data => {
@@ -147,13 +146,25 @@ function displayPublicIPs() {
                 const source = service.match(/https:\/\/([^/]+)/)[1];
                 const ipElement = document.createElement('div');
                 ipElement.textContent = `Public IP (${source}): ${ip}`;
-                ipContainer.appendChild(ipElement);
+                return ipElement;
             })
             .catch(error => {
                 console.error(`Failed to retrieve IP from ${service}:`, error);
+                return null;
+            })
+    );
+
+    // Wait for all promises to resolve
+    Promise.all(fetchPromises)
+        .then(ipElements => {
+            // Filter out any null elements (failed requests)
+            const validIPElements = ipElements.filter(element => element !== null);
+
+            // Append the IP elements to the container
+            validIPElements.forEach(ipElement => {
+                ipContainer.appendChild(ipElement);
             });
-    });
-    
+        });
 }
 
 // Call the function to display public IPs
