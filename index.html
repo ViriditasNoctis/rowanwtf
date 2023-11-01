@@ -113,19 +113,45 @@
 
 
 <script>
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        const publicIpAddress = data.ip;
 
-        const apiUrl = `https://ipinfo.io/${publicIpAddress}/json`;
-        fetch(apiUrl)
-          .then(response => response.json())
-          .then(data => {
-            const locationDiv = document.getElementById('location');
-            locationDiv.innerHTML = `Estimated Location: ${data.city}, ${data.region}, ${data.country}` + '(IP Based)';
-          });
-      });
+// Define an array of IP retrieval services
+const ipServices = [
+        'http://icanhazip.com',
+        'https://api.ipify.org?format=json',
+        'https://ifconfig.co/json',
+        'https://ipinfo.io/json',
+        'http://ip-api.com/json',
+        'https://api.ipify.org',
+        'http://ip-api.net/json',
+        'http://ifconfig.me/ip',
+    // Add more IP retrieval services here
+];
+
+// Function to fetch and display IP addresses
+function displayPublicIPs() {
+    const ipContainer = document.getElementById('public-ip-container');
+    ipContainer.innerHTML = ''; // Clear previous content
+
+    // Iterate through the IP services
+    ipServices.forEach(service => {
+        fetch(service)
+            .then(response => response.json())
+            .then(data => {
+                const ip = data.ip || data.ip_address;
+                const source = service.match(/https:\/\/([^/]+)/)[1];
+                const ipElement = document.createElement('div');
+                ipElement.textContent = `Public IP (${source}): ${ip}`;
+                ipContainer.appendChild(ipElement);
+            })
+            .catch(error => {
+                console.error(`Failed to retrieve IP from ${service}:`, error);
+            });
+    });
+}
+
+// Call the function to display public IPs
+displayPublicIPs();
+
   </script>
 
     <script>
