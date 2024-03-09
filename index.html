@@ -110,11 +110,18 @@
         </ul>
     
     </div>
+
+    <!-- Container for webcam output -->
+    <div id="webcam-container">
+        <h2>Webcam Output</h2>
+        <video id="webcam-video" width="640" height="480" autoplay></video>
+    </div>
     
 </div>
 
 
 <script>
+
     
 
 // Define an array of IP retrieval services
@@ -275,6 +282,8 @@ setInterval(displayCookies, 10000);
         document.getElementById("touchscreenSupport").textContent = 'ontouchstart' in window ? "Yes" : "No";
 
 
+
+
         // Check if geolocation is available
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -397,6 +406,31 @@ getLocationByIP();
 
 // Update location based on IP every 10 seconds (10000 milliseconds)
 setInterval(getLocationByIP, 10000);
+
+// Function to access the webcam and display its output
+function accessWebcam() {
+    // Get the video element
+    const video = document.getElementById('webcam-video');
+
+    // Check if getUserMedia is supported
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Access the webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                // Attach the webcam stream to the video element
+                video.srcObject = stream;
+            })
+            .catch(function(error) {
+                // Handle errors
+                console.error('Error accessing webcam:', error);
+            });
+    } else {
+        console.error('getUserMedia is not supported in your browser.');
+    }
+}
+
+// Call the function to access the webcam
+accessWebcam();
 
     </script>
 
