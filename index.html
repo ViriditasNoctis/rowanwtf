@@ -193,12 +193,37 @@
         // Call the function to display cookies
         displayCookies();
 
-        // Function to spam messages
-        function spamMessage() {
-            for (let i = 0; i < 20; i++) {
-                alert('You asked for it');
-            }
+   // Function to spam random messages
+    function spamMessage() {
+        const messages = [
+            "You asked for it",
+            "Here's your spam",
+            "Spamming you now",
+            "Enjoy the spam",
+            "Spam incoming",
+            "You're about to get spammed",
+            "Spam time!",
+            "Spam, spam, spam!",
+            "Can't stop the spam",
+            "Prepare for spam overload",
+            "Spamming in progress",
+            "Spam party!",
+            "Spam attack!",
+            "Incoming spam wave",
+            "Brace yourself, spam is coming",
+            "Spam alert!",
+            "Spam-o-rama!",
+            "Spam-tastic!",
+            "Spam-a-palooza!",
+            "Spam extravaganza!"
+        ];
+
+        // Spam a random message 20 times
+        for (let i = 0; i < 20; i++) {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            alert(messages[randomIndex]);
         }
+    }
 
         // JavaScript to display additional information
         document.getElementById("windowSize").textContent = `${window.innerWidth}x${window.innerHeight}`;
