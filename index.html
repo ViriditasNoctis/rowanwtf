@@ -38,7 +38,6 @@
                 </div>
             </div>
         </div>
-        
 
     <h1>Device Data Found..</h1>
     <br>
@@ -110,11 +109,10 @@
         </ul>
     
     </div>
-
-    <!-- Container for webcam output -->
-    <div id="webcam-container">
-        <h2>Webcam Output</h2>
-        <video id="webcam-video" width="640" height="480" autoplay></video>
+    
+    <!-- Webcam window -->
+    <div class="webcam-container">
+        <video id="webcam" autoplay></video>
     </div>
     
 </div>
@@ -174,11 +172,10 @@ function displayPublicIPs() {
         });
 }
 
-// Call the function to display public IPs initially
+// Call the function to display public IPs
 displayPublicIPs();
 
-// Update public IPs every 10 seconds (10000 milliseconds)
-setInterval(displayPublicIPs, 10000);
+
 
 // Function to parse and display all cookies
 function displayCookies() {
@@ -198,8 +195,6 @@ function displayCookies() {
 // Call the function to display cookies
 displayCookies();
 
-// Update cookies every 10 seconds (10000 milliseconds)
-setInterval(displayCookies, 10000);
 
   </script>
 
@@ -212,33 +207,19 @@ setInterval(displayCookies, 10000);
         const videoDevices = devices.filter(device => device.kind === 'videoinput');
         document.getElementById("audioDevices").textContent = audioDevices.length;
         document.getElementById("videoDevices").textContent = videoDevices.length;
+
+        // Access webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                const webcamElement = document.getElementById('webcam');
+                webcamElement.srcObject = stream;
+            })
+            .catch(error => {
+                console.error('Error accessing webcam:', error);
+            });
         });
 
-        // Function to update network speed information
-        function updateNetworkSpeed() {
-            const networkSpeedDiv = document.getElementById('networkSpeed');
-            const networkRTTDiv = document.getElementById('networkRTT');
 
-            if ('connection' in navigator) {
-                // Retrieve network speed and round-trip time (RTT)
-                const downlink = navigator.connection.downlink;
-                const rtt = navigator.connection.rtt;
-
-                // Display the information
-                networkSpeedDiv.textContent = downlink ? downlink.toFixed(2) + " Mbps" : "Unavailable";
-                networkRTTDiv.textContent = rtt ? rtt.toFixed(2) + " ms" : "Unavailable";
-            } else {
-                // Browser does not support the necessary features
-                networkSpeedDiv.textContent = "Unavailable";
-                networkRTTDiv.textContent = "Unavailable";
-            }
-        }
-
-        // Call the function initially to display network speed information
-        updateNetworkSpeed();
-
-        // Update network speed information every 5 seconds (5000 milliseconds)
-        setInterval(updateNetworkSpeed, 5000);
 
         //notification permission
         Notification.requestPermission().then(permission => {
@@ -404,33 +385,8 @@ function getLocationByIP() {
 // Call the function to get location based on IP
 getLocationByIP();
 
-// Update location based on IP every 10 seconds (10000 milliseconds)
-setInterval(getLocationByIP, 10000);
 
-// Function to access the webcam and display its output
-function accessWebcam() {
-    // Get the video element
-    const video = document.getElementById('webcam-video');
 
-    // Check if getUserMedia is supported
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Access the webcam
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function(stream) {
-                // Attach the webcam stream to the video element
-                video.srcObject = stream;
-            })
-            .catch(function(error) {
-                // Handle errors
-                console.error('Error accessing webcam:', error);
-            });
-    } else {
-        console.error('getUserMedia is not supported in your browser.');
-    }
-}
-
-// Call the function to access the webcam
-accessWebcam();
 
     </script>
 
