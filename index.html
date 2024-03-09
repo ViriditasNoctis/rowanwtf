@@ -21,23 +21,23 @@
 <body>
 
 <div class="container">
-    <!-- Your webpage content goes here -->
-    <div class="nav-wrapper">
-        <div class="left-side">
-            <div class="nav-link-wrapper active-nav-link">
-                <a href="https://rowan.wtf">r0wan.wtf</a>
-            </div>
-            <div class="nav-link-wrapper">
-                <a href="https://rotte.io">r0tte.i0</a>
-            </div>
-            <div class="nav-link-wrapper">
-                <a href="https://wiki.rotte.io">wiki</a>
-            </div>
-            <div class="nav-link-wrapper">
-                <a href="https://github.com/ViriditasNoctis/rowanwtf">github</a>
+        <!-- Your webpage content goes here -->
+        <div class="nav-wrapper">
+            <div class="left-side">
+                <div class="nav-link-wrapper active-nav-link">
+                    <a href="https://rowan.wtf">r0wan.wtf</a>
+                </div>
+                <div class="nav-link-wrapper">
+                    <a href="https://rotte.io">r0tte.i0</a>
+                </div>
+                <div class="nav-link-wrapper">
+                    <a href="https://wiki.rotte.io">wiki</a>
+                </div>
+                <div class="nav-link-wrapper">
+                    <a href="https://github.com/ViriditasNoctis/rowanwtf">github</a>
+                </div>
             </div>
         </div>
-    </div>
         
 
     <h1>Device Data Found..</h1>
@@ -45,19 +45,18 @@
     <div class="middle-side">
         <!-- div to display the public IP -->
         <div id="public-ip-container" style="color: green; font-size: 1.2em;">
-            scanning network..
-        </div> 
-    </div>
+        scanning network..
+    </div> 
     <div class="middle-side">
         <!-- div to display the estimate location -->
         <div id="location" style="color: green; font-size: 1.2em;">
-            estimating target location..
-        </div>
+        estimating target location..
+    </div>
     </div>
     <div class="right-side">
         <!-- Add a container for the city name -->
         <div id="city-container">
-            locating target..
+        locating target..
         </div>
     </div>
     <br>
@@ -65,7 +64,7 @@
     <div class="right-side">
         <!-- Add a container for the device orientation -->
         <div id="deviceOrientation">
-            spinning gyroscope..
+        spinning gyroscope..
         </div>
     </div>
     <div class="profile-content-wrapper">
@@ -100,25 +99,22 @@
             <li><strong>Connection Type:</strong> <span id="connectionType"></span></li>
             <li><strong>Browser Window Size:</strong> <span id="windowSize"></span></li>
             <li><strong>Device Pixel Ratio:</strong> <span id="pixelRatio"></span></li>
+            <!-- Add more information as needed -->
+        </ul>
+        <br>
+    
+        <ul>
             <li><strong>Audio devices:</strong> <span id="audioDevices"></span></li>
             <li><strong>Video devices:</strong> <span id="videoDevices"></span></li>
             <li><strong>Touch Screen Support:</strong> <span id="touchscreenSupport"></span></li>
-            <!-- Additional information -->
-            <li><strong>WebRTC Support:</strong> <span id="webRtcSupport"></span></li>
-            <li><strong>File System Access Support:</strong> <span id="fileSystemAccessSupport"></span></li>
-            <li><strong>WebGL Support:</strong> <span id="webglSupport"></span></li>
-            <li><strong>Payment Request API Support:</strong> <span id="paymentRequestApiSupport"></span></li>
-            <li><strong>Credential Management API Support:</strong> <span id="credentialManagementApiSupport"></span></li>
-            <li><strong>Web Authentication API Support:</strong> <span id="webAuthenticationApiSupport"></span></li>
-            <li><strong>Network Speed (Download/Upload):</strong> <span id="networkSpeed"></span></li>
-            <li><strong>Accessibility Features:</strong> <span id="accessibilityFeatures"></span></li>
         </ul>
+    
     </div>
+    
 </div>
 
 
 <script>
-
     
 
 // Define an array of IP retrieval services
@@ -171,10 +167,11 @@ function displayPublicIPs() {
         });
 }
 
-// Call the function to display public IPs
+// Call the function to display public IPs initially
 displayPublicIPs();
 
-
+// Update public IPs every 10 seconds (10000 milliseconds)
+setInterval(displayPublicIPs, 10000);
 
 // Function to parse and display all cookies
 function displayCookies() {
@@ -194,6 +191,8 @@ function displayCookies() {
 // Call the function to display cookies
 displayCookies();
 
+// Update cookies every 10 seconds (10000 milliseconds)
+setInterval(displayCookies, 10000);
 
   </script>
 
@@ -208,7 +207,31 @@ displayCookies();
         document.getElementById("videoDevices").textContent = videoDevices.length;
         });
 
+        // Function to update network speed information
+        function updateNetworkSpeed() {
+            const networkSpeedDiv = document.getElementById('networkSpeed');
+            const networkRTTDiv = document.getElementById('networkRTT');
 
+            if ('connection' in navigator) {
+                // Retrieve network speed and round-trip time (RTT)
+                const downlink = navigator.connection.downlink;
+                const rtt = navigator.connection.rtt;
+
+                // Display the information
+                networkSpeedDiv.textContent = downlink ? downlink.toFixed(2) + " Mbps" : "Unavailable";
+                networkRTTDiv.textContent = rtt ? rtt.toFixed(2) + " ms" : "Unavailable";
+            } else {
+                // Browser does not support the necessary features
+                networkSpeedDiv.textContent = "Unavailable";
+                networkRTTDiv.textContent = "Unavailable";
+            }
+        }
+
+        // Call the function initially to display network speed information
+        updateNetworkSpeed();
+
+        // Update network speed information every 5 seconds (5000 milliseconds)
+        setInterval(updateNetworkSpeed, 5000);
 
         //notification permission
         Notification.requestPermission().then(permission => {
@@ -250,8 +273,6 @@ displayCookies();
         document.getElementById("localStorageUsage").textContent = localStorage.length;
         document.getElementById("hardwareConcurrency").textContent = navigator.hardwareConcurrency;
         document.getElementById("touchscreenSupport").textContent = 'ontouchstart' in window ? "Yes" : "No";
-
-
 
 
         // Check if geolocation is available
@@ -324,16 +345,6 @@ displayCookies();
         document.getElementById("windowSize").textContent = `${window.innerWidth}x${window.innerHeight}`;
         document.getElementById("timezone").textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
         document.getElementById("pixelRatio").textContent = window.devicePixelRatio;
-
-        // Additional Features
-        document.getElementById("webRtcSupport").textContent = navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? "Yes" : "No";
-        document.getElementById("fileSystemAccessSupport").textContent = 'showOpenFilePicker' in window ? "Yes" : "No";
-        document.getElementById("webglSupport").textContent = 'WebGLRenderingContext' in window ? "Yes" : "No";
-        document.getElementById("paymentRequestApiSupport").textContent = 'PaymentRequest' in window ? "Yes" : "No";
-        document.getElementById("credentialManagementApiSupport").textContent = 'credentials' in navigator ? "Yes" : "No";
-        document.getElementById("webAuthenticationApiSupport").textContent = 'PublicKeyCredential' in window ? "Yes" : "No";
-        document.getElementById("networkSpeed").textContent = navigator.connection && navigator.connection.downlink ? `${navigator.connection.downlink} Mbps / ${navigator.connection.rtt} ms` : "Unavailable";
-        document.getElementById("accessibilityFeatures").textContent = document.body && typeof document.body.createTextRange === "function" ? "Yes" : "No";
     </script>
     <script>
 
@@ -384,8 +395,8 @@ function getLocationByIP() {
 // Call the function to get location based on IP
 getLocationByIP();
 
-
-
+// Update location based on IP every 10 seconds (10000 milliseconds)
+setInterval(getLocationByIP, 10000);
 
     </script>
 
