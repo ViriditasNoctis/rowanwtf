@@ -86,3 +86,23 @@ body {
     color: green;
     font-size: 1.2em;
 }
+
+a.button {
+display: inline-block;
+padding: 10px 20px;
+background-color: #4CAF50;
+color: white;
+text-decoration: none;
+border-radius: 4px;
+border: none;
+cursor: pointer;
+text-align: center;
+}
+
+a.button:hover {
+background-color: #45a049;
+}
+
+a.button:active {
+background-color: #3e8e41;
+}
