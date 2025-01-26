@@ -1,2 +1,2 @@
-# rowanwtf (EDIT: DOMAIN IS REPURPOSED)
+# rowanwtf (REMOVED)
 rowan.wtf shows data accessible by the browser
